@@ -4,7 +4,7 @@ A dockerfile and scripts to convert a jupyter notebook to pdf (latex beamer) sli
 
 It uses the metadata values from the slides view of jupyter notebook (in the sense that
 a skipped cell is not shown), and (if it is installed) the metadata from the hide_code 
-jupyter notebook plugin.
+jupyter notebook plugin to hide the code or output of a cell.
 
 It inserts a new slide after each markdown section or subsection or subsubsection.
 
