@@ -10,19 +10,23 @@
 {% endblock any_cell %}
 
 {% block input %}
+    {% if cell['metadata'].hideCode %}
     {% if cell['metadata']['hideCode'] == True %}
+    {% else %}
+    {{ super() }}
+    {% endif %}
     {% else %}
     {{ super() }}
     {% endif %}
 {% endblock input %}
 
 {% block output %}
+    {% if cell['metadata'].hideOutput %}
     {% if cell['metadata']['hideOutput'] == True %}
     {% else %}
     {{ super() }}
     {% endif %}
+    {% else %}
+    {{ super() }}
+    {% endif %}
 {% endblock output %}
-
-{% block data_pdf %}
-![pdf]({{ output.metadata.filenames['image/pdf'] | path2url }})
-{% endblock data_pdf %}
