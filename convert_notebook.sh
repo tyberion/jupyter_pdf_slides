@@ -10,7 +10,7 @@ for SVGFILE in $( ls /tmp/*.svg ); do
 done
 
 cat /tmp/converted.tex | grep -v caption{svg} | sed "s/\.svg/\.pdf/g" > /tmp/converted_tmp.tex
-cat /tmp/converted_tmp.tex | sed "s/includegraphics/includegraphics[width=0.7\\\textwidth]/g" > /tmp/converted.tex
+cat /tmp/converted_tmp.tex | sed "s/includegraphics/includegraphics[width=0.8\\\textwidth,height=0.7\\\textheight,keepaspectratio]/g" > /tmp/converted.tex
 
 cd /
 pdflatex --output-directory=/tmp /tmp/converted.tex
