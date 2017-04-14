@@ -20,3 +20,7 @@ To convert the notebook run:
 To view the available beamer themes and colors see:
 
 http://deic.uab.es/~iblanes/beamer_gallery/index.html
+
+If you want to design your own custom theme use this thread as a starting point:
+
+https://tex.stackexchange.com/questions/146529/design-a-custom-beamer-theme-from-scratch
