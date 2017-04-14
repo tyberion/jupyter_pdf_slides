@@ -6,6 +6,8 @@
     {% else %}
     {{ super() }}
     {% endif %}
+    {% else %}
+    {{ super() }}
     {% endif %}
 {% endblock any_cell %}
 
