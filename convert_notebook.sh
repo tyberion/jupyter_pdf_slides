@@ -1,8 +1,24 @@
 #!/bin/bash
 
+IPYNB_FILE=$1
+THEME=$2
+COLORTHEME=$3
+LOGO=$4
+
+IPYNB_NAME=$( echo $IPYNB_FILE | sed "s/\.ipynb//g" )
+
 cd /convert
-jupyter-nbconvert --to markdown /to_convert/$1 --template slides --output=/tmp/converted.md
-pandoc -s -V theme=$2 -V colortheme=$3 -t beamer /tmp/converted.md -o /tmp/converted.tex
+jupyter-nbconvert --to markdown /to_convert/$IPYNB_FILE --template slides --output=/tmp/converted.md
+
+if [ $LOGO != - ]; then
+    cat /convert/header.tex | sed "s/LOGO/$LOGO/g" > /tmp/header.tex
+    cp /to_convert/$LOGO /tmp/$LOGO
+else
+    cat /convert/header.tex | grep -v LOGO > /tmp/header.tex
+fi
+
+pandoc -s -H /tmp/header.tex -V theme=$THEME -V colortheme=$COLORTHEME -t beamer /tmp/converted.md -o /tmp/converted.tex
+
 
 for SVGFILE in $( ls /tmp/*.svg ); do
     PDFFILE=$( echo $SVGFILE | sed "s/\.svg/\.pdf/g" )
@@ -10,11 +26,12 @@ for SVGFILE in $( ls /tmp/*.svg ); do
 done
 
 cat /tmp/converted.tex | grep -v caption{svg} | sed "s/\.svg/\.pdf/g" > /tmp/converted_tmp.tex
-cat /tmp/converted_tmp.tex | sed "s/includegraphics/includegraphics[width=0.8\\\textwidth,height=0.7\\\textheight,keepaspectratio]/g" > /tmp/converted.tex
+cat /tmp/converted_tmp.tex | sed "/\\\logo/b; s/includegraphics/includegraphics[width=0.8\\\textwidth,height=0.7\\\textheight,keepaspectratio]/g" > /tmp/converted.tex
 
 cd /
 pdflatex --output-directory=/tmp /tmp/converted.tex
 
-# cp /tmp/converted.tex /to_convert/$1.tex
+cp /tmp/converted.tex /to_convert/$IPYNB_NAME.tex
+cp /tmp/converted.md /to_convert/$IPYNB_NAME.md
 
-cp /tmp/converted.pdf /to_convert/$1.pdf
+cp /tmp/converted.pdf /to_convert/$IPYNB_NAME.pdf
