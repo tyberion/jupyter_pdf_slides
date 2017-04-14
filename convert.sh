@@ -27,7 +27,8 @@ shift $(($OPTIND - 1))
 IPYNB_DIR=$1
 IPYNB_FILE=$2
 
-echo $LOGO
-
+# build the docker image
 docker build -t pdf_slides .
+
+# run the image and mount the jupyter_pdf_slides directory to /convert and the directory containing the notebook to /to_convert
 docker run --rm -v $( pwd ):/convert -v $IPYNB_DIR:/to_convert pdf_slides /bin/bash /convert/convert_notebook.sh $IPYNB_FILE $THEME $COLORTHEME $LOGO
