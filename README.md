@@ -3,14 +3,14 @@
 A dockerfile and scripts to convert a jupyter notebook to pdf (latex beamer) slides.
 
 It uses the metadata values from the slides view of jupyter notebook (in the sense that
-a skipped cell is not shown), and (if it is installed) the metadata from the hide_code 
+a skipped cell is not shown), and (if it is installed) the metadata from the hide_code
 jupyter notebook plugin to hide the code or output of a cell.
 
-It inserts a new slide after each markdown section or subsection.
+It inserts a new slide after each markdown section or subsection. A markdown section
+creates a page with only a title (no content) the markdown subsection allows for content.
 
 The first cell in the example notebook shows how to make a titlepage
 (**Note** the empty line at the beginning is required)
-
 
 To assure nice images plot them to svg so use the following in your notebook:
 
