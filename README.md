@@ -22,7 +22,7 @@ To convert the notebook run:
     convert.sh [-t beamer_template] [-c beamer_color_theme] [-l logo_image] [ipynb_directory] [ipynb_filename]
 
 An optional logo can be provided, place it in the ipynb_directory and use the -l option,
-at the moment the logo is placed at the bottom left corner of every slide.
+the logo is placed at a position given by the beamer theme.
 
 To view the available beamer themes and colors see:
 
