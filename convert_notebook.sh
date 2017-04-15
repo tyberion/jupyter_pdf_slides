@@ -4,6 +4,13 @@ IPYNB_FILE=$1
 THEME=$2
 COLORTHEME=$3
 LOGO=$4
+LOGO_SIZE=$5
+GEOMETRY=$6
+
+# check if a custom theme exists
+if [ -f /convert/beamertheme$THEME.sty ]; then
+    cp /convert/beamertheme$THEME.sty /tmp
+fi
 
 # remove extension from file
 IPYNB_NAME=$( echo $IPYNB_FILE | sed "s/\.ipynb//g" )
@@ -21,7 +28,7 @@ sed '/./,$!d' /tmp/converted_tmp.md > /tmp/converted.md
 
 if [ $LOGO != - ]; then
     # add the logo file to the header and copy it to /tmp
-    cat /convert/header.tex | sed "s/LOGO/$LOGO/g" > /tmp/header.tex
+    cat /convert/header.tex | sed "s/__LOGO__/$LOGO/g" | sed "s/__LOGO_SIZE__/$LOGO_SIZE/g" > /tmp/header.tex
     cp /to_convert/$LOGO /tmp/$LOGO
 else
     # no logo, remove from header
@@ -29,7 +36,7 @@ else
 fi
 
 # convert the markdown to beamer latex
-pandoc -s -H /tmp/header.tex -V theme=$THEME -V colortheme=$COLORTHEME -t beamer /tmp/converted.md -o /tmp/converted.tex
+pandoc -s -H /tmp/header.tex -V theme=$THEME -V classoption=aspectratio=$GEOMETRY -V colortheme=$COLORTHEME -t beamer /tmp/converted.md -o /tmp/converted.tex
 
 # make sure the graphics have the right size and extension
 cat /tmp/converted.tex | grep -v caption{svg} | sed "s/\.svg/\.pdf/g" > /tmp/converted_tmp.tex

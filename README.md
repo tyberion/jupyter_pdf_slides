@@ -19,10 +19,19 @@ To assure nice images plot them to svg so use the following in your notebook:
 
 To convert the notebook run:
 
-    convert.sh [-t beamer_template] [-c beamer_color_theme] [-l logo_image] [ipynb_directory] [ipynb_filename]
+    convert.sh [-t beamer_template] [-c beamer_color_theme ] [-l logo_image] [-s logo_size] [-g slide_geometry] ipynb_directory ipynb_filename
 
 An optional logo can be provided, place it in the ipynb_directory and use the -l option,
-the logo is placed at a position given by the beamer theme.
+the logo is placed at a position given by the beamer theme, the size of the logo can be given by -s for
+example -s 3cm gives a logo with a width of 3 cm
+The geometry of the slides can be given with the -g option. The possible option values with the geometries
+in brackets are:
+- 1610 (16:10)
+- 169 (16:9)
+- 149 (14:9)
+- 54 (5:4)
+- 43 (4:3)
+- 32 (3:2)
 
 To view the available beamer themes and colors see:
 
